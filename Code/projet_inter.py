@@ -11,6 +11,7 @@ import numpy as np
 import math
 import nltk
 
+#exemple mot
 xmot1 = [0.1, 0.7, 0.8, 0.9, 0.1, 0.2]
 xmot2 = [0.7, 0.9, 0.8, 0.9, 0.9]
 ymot1 = [0.1, 0.1, 0.1, 0.9, 0.1, 0.2]
