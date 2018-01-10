@@ -13,7 +13,7 @@ V1.2 : Nicolas Brouté, add condition in calculate mean of TF IDF
 '''
 
 # Reading JSON data 
-with open('jour.json', 'r') as file:
+with open('score_test.json', 'r') as file:
     file = json.load(file)
 
 key_word={}
@@ -25,13 +25,13 @@ Function has two parameters:
     file : Json File 
     top_word : number of word which user would
 It returns a dictionnary of top word and their TF IDF values 
-'''
+'''''
     agregate=0
     counter=0
     key_word={}
     #calculate mean TF IDF by word 
     for key,val in file.items():
-        if key[-3:]=="IDF" :
+        if key[-3:]=="IDF" or (key!="period" and key[-2:]!="TF"):
             for index1 in range(len(val)):
                 for index2 in range(len(val[index1])):
                     agregate=agregate+val[index1][index2]
@@ -43,19 +43,6 @@ It returns a dictionnary of top word and their TF IDF values
                 key_word[key]=mean_word
                 agregate=0
                 counter=0
-        if key[-2:]!="TF" and key != "period":
-            for index1 in range(len(val)):
-                for index2 in range(len(val[index1])):
-                    agregate=agregate+val[index1][index2]
-                    counter=counter+1
-                if counter == 0 : 
-                    mean_word=0
-                else:
-                    mean_word=round(agregate/counter,2)
-                key_word[key]=mean_word
-                agregate=0
-                counter=0
-
             
     key_word_sort=sorted(key_word.items(),reverse=True, key=lambda t: t[1])
     
