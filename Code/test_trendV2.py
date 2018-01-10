@@ -1,23 +1,21 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jan  8 08:47:19 2018
+Created on Wed Jan 10 13:27:50 2018
 
-@author: samba
+@author: FALL
 """
-import scipy
-import pandas
-import sklearn
-import numpy as np
-import math
-import nltk
-import json
 
+import json
+import scipy
 
 def test_trend(Path, word, id_day):
-    '''trend'''
+    ''' Read file'''
     week_day = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
     with open(Path, 'r') as file:
         data = json.load(file)
+        
+    '''trend'''
     test = scipy.stats.ttest_ind(data[word][id_day], data[word][id_day-1])
     if(test[1] > 0.001 and test[1] < 0.05):
         if ((test[0] > 0)):
@@ -36,5 +34,3 @@ def test_trend(Path, word, id_day):
     else:
         return(word, 'pas de tendance', week_day[id_day])
         
-test_trend('C:/Users/samba/Desktop/info sid/M2/week1json.json', 'mot2', 3)
-
