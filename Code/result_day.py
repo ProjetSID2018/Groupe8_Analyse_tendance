@@ -10,15 +10,13 @@ import json
 V1.1 : Nicolas Brouté
 V1.2 : Nicolas Brouté, modification : delete one loop to run JSON File 
 V1.3 : add condition on key of a dictionnary
+V1.4 : add round at the agregate
 '''
 
 # Reading data 
 with open('jour.json', 'r') as file:
     file = json.load(file)
-          
-
-
- 
+           
 def result_day (file):
     '''
 Function calcultate sum of TF by word and by day
@@ -37,7 +35,7 @@ It returns dictionnary with word and sum of occurency by day
         else :
             for index1 in range (0,len(val)):
                 for index2 in range (0,len(val[index1])):
-                    agregate=agregate + val[index1][index2] 
+                    agregate=round(agregate + val[index1][index2],2)
                 result_day.append(agregate)
                 agregate=0
             result[key]=result_day
