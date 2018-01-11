@@ -125,45 +125,5 @@ def test_trend_day(Path, word, id_day):
         return(word, 'No trend', week_day[id_day])
 
 
-'''
-@author: Jeremy
-'''
-def somme_tf_mots (json_tab):
-    
-    '''goal: give tf 's sum of each word
-    param : json_tab ->a dictionnary with:
-        -keys : words
-        -values : tf
-    return modified json_tab with:
-        -keys:words
-        -values:tf's sum'''
-
-    for i in json_tab.keys() :
-        val=0.0
-        for j in json_tab[i]:
-            val+=sum(j)
-            
-        json_tab[i]=val
-
-        
-        
-        
-        
-'''goal : define which word is the most popular 
-param : json_tab ->a dictionnary with:
--keys : words
--values : tf
-return max_mot(String): contains the word which it has the biggest tf's sum'''
-def popularite_max_mot (json_tab):
-
-
-    somme_tf_mots(json_tab)
-    maxi=0
-    max_mot="error"
-    for cle,valeur in json_tab.items():
-        if valeur>maxi:
-            maxi=valeur
-            max_mot=cle
-    return max_mot
 
      
