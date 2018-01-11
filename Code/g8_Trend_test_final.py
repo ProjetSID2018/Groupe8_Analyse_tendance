@@ -39,12 +39,10 @@ def test_trend(data, word, id_day):
         return(word, 'Pas_de_tendance')
 
 
-def file_trend(file):
+def file_trend(data):
     """ data preprocessing for groupe 9
     param : file -> json file
     return json with trend, period and most important word"""
-    with open(file, 'r') as file:
-        data = json.load(file)
     dict = {}
     for cle, valeur in data.items():
         if(cle != 'period'):
@@ -54,9 +52,8 @@ def file_trend(file):
         else:
             dict[cle] = valeur
     return(dict)
-""" Test  """
-trend = file_trend('C:/Users/samba/Groupe8_Analyse_tendance/Data/Test/jour.json')
-trend
 
+""" Test  """
 with open('C:/Users/samba/Groupe8_Analyse_tendance/Data/Test/jour.json', 'r') as file:
         data = json.load(file)
+trend = file_trend(data)
