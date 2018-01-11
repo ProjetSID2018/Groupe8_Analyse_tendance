@@ -42,7 +42,6 @@ It returns a dictionnary of top word and their TF IDF values
             else:
                 mean_word=round(agregate/counter,2)
             key_word[key]=mean_word
-            print(key_word)
             agregate=0
             counter=0
             
