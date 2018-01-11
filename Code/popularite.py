@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jan  9 10:27:07 2018
+
+@author: jeremy
+"""
+
+
+
+
+
 def somme_tf_mots (json_tab):
     
     '''goal: give tf 's sum of each word
