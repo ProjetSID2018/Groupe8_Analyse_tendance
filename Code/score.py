@@ -5,6 +5,7 @@ Created on Tue Jan  9 13:34:57 2018
 @author: Nicolas
 """
 import json
+import math
 
 '''
 V1 : Nicolas Brouté
@@ -36,13 +37,14 @@ It returns a dictionnary of top word and their TF IDF values
                 for index2 in range(len(val[index1])):
                     agregate=agregate+val[index1][index2]
                     counter=counter+1
-                if counter == 0 : 
-                    mean_word=0
-                else:
-                    mean_word=round(agregate/counter,2)
-                key_word[key]=mean_word
-                agregate=0
-                counter=0
+            if counter == 0 : 
+                mean_word=0
+            else:
+                mean_word=round(agregate/counter,2)
+            key_word[key]=mean_word
+            print(key_word)
+            agregate=0
+            counter=0
             
     key_word_sort=sorted(key_word.items(),reverse=True, key=lambda t: t[1])
     
@@ -56,3 +58,5 @@ It returns a dictionnary of top word and their TF IDF values
     return(dico_back)
 
 print(score(file,3))
+
+
