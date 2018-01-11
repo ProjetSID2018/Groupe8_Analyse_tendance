@@ -10,7 +10,16 @@ import json
 
 
 def test_trend(data, word, id_day):
+<<<<<<< HEAD
     '''trend'''
+=======
+    ''' This function has three parameters :
+    data : json data
+    word : words to analyse 
+    id_day :  day to analyse 
+    This function calculate the T-test for the means of two independent samples and returns the conclusion of the test
+	'''
+>>>>>>> f5da4dd63a0e1c0897dfb709a27c365ce18832d9
     test = scipy.stats.ttest_ind(data[word][id_day], data[word][id_day-1])
     if(test[1] > 0.001 and test[1] < 0.05):
         if ((test[0] > 0)):
