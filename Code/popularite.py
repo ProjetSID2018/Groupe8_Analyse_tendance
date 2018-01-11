@@ -8,13 +8,14 @@ Created on Tue Jan  9 10:27:07 2018
 
 
 
+
 def somme_tf_mots (json_tab):
     
-    '''goal: give tf 's sum of each word'''
-    '''param : json_tab ->a dictionnary with:
+    '''goal: give tf 's sum of each word
+   param : json_tab ->a dictionnary with:
         -keys : words
-        -values : tf'''
-    '''return modified json_tab with:
+        -values : tf
+    return modified json_tab with:
         -keys:words
         -values:tf's sum'''
 
@@ -26,19 +27,17 @@ def somme_tf_mots (json_tab):
         json_tab[i]=val
 
         
+
         
-######################################        
         
-#  
 def popularite_max_mot (json_tab):
-     '''goal : define which word is the most popular '''
-    '''param : json_tab ->a dictionnary with:
+     '''goal : define which word is the most popular 
+        param : json_tab ->a dictionnary with:
         -keys : words
-        -values : tf'''
-    '''return max_mot(String): contains the word which it has the biggest tf's sum'''
-    #json_tab is a dictionnary
-    #keys :words
-    #values :tf
+        -values : tf
+    return max_mot(String): contains the word which it has the biggest tf's sum'''
+        
+    
     somme_tf_mots(json_tab)
     maxi=0
     max_mot="error"
@@ -47,11 +46,7 @@ def popularite_max_mot (json_tab):
             maxi=valeur
             max_mot=cle
     return max_mot
-#max_mot contains the word which it has the biggest tf's sum
      
-
-
-###################################
 
     
     

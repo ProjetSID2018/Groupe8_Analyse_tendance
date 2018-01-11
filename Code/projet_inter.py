@@ -72,5 +72,5 @@ def file_trend(file):
             tab.append(trend)
         dict[cle] = tab
     return(dict)
-""" Test """
+""" Test  """
 trend = file_trend('C:/Users/samba/Desktop/info sid/M2/week1json.json')
