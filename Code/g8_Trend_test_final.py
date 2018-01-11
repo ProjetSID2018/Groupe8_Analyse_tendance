@@ -9,7 +9,7 @@ import scipy
 import json
 
 
-def test_trend2(data, word, id_day):
+def test_trend(data, word, id_day):
     '''trend'''
     test = scipy.stats.ttest_ind(data[word][id_day], data[word][id_day-1])
     if(test[1] > 0.001 and test[1] < 0.05):
@@ -39,8 +39,8 @@ def file_trend(file):
     dict = {}
     for cle, valeur in data.items():
         if(cle != 'period'):
-            for val in range(1,len(valeur)):
-                word, trend = test_trend2(data, cle, val)                
+            for val in range(1, len(valeur)):
+                word, trend = test_trend(data, cle, val)
             dict[cle] = trend
         else:
             dict[cle] = valeur
@@ -49,3 +49,5 @@ def file_trend(file):
 trend = file_trend('C:/Users/samba/Groupe8_Analyse_tendance/Data/Test/jour.json')
 trend
 
+with open('C:/Users/samba/Groupe8_Analyse_tendance/Data/Test/jour.json', 'r') as file:
+        data = json.load(file)
