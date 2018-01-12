@@ -10,8 +10,8 @@ import json
 # Reading JSON data
 with open('score_test.json', 'r') as file:
     file = json.load(file)
-
-
+    
+     
 def score_week(file, top_word):
     '''
 Function calculate mean TF IDF by word to built a dictionnary of word most
@@ -29,13 +29,13 @@ A second dictionnary with top word with their TF values
 
     # calculate mean TF IDF by word
     for key, val in file.items():
-        if key[-3:] == "IDF":
+        if key[-3:] == "idf":
             for index1 in range(len(val)):
                 for index2 in range(len(val[index1])):
                     agregate = agregate + val[index1][index2]
                     counter = counter + 1
-            mean_word = round(agregate / counter, 2)
-            key_word[key[:-6]] = mean_word
+            mean_word = agregate / counter
+            key_word[key[:-7]] = round(mean_word/len(val), 2)
             agregate = 0
             counter = 0
 
@@ -54,16 +54,14 @@ A second dictionnary with top word with their TF values
     liste_agregate = []
     dico_tf = {}
     for key_dico_back in dico_back.keys():
-        wrd = key_dico_back + "_TF"
+        wrd = key_dico_back + "_tf"
         dictionnary_intermediate[wrd] = file.get(wrd)
-
     # built dictionnary of TF
     for key, val in dictionnary_intermediate.items():
         k = key[:-3]  # remove terminaison
         for index1 in range(len(val)):
             if len(val[index1]) != 0:
                 for index2 in range(len(val[index1])):
-                    print(val[index1][index2])
                     agregate = agregate + val[index1][index2]
             else:
                 agregate = 0
@@ -71,8 +69,7 @@ A second dictionnary with top word with their TF values
             agregate = 0
         dico_tf[k] = liste_agregate
         liste_agregate = []
-
     return(dico_back, dico_tf)
 
 
-print(score_week(file, 1))
+print(score_week(file, 10))
