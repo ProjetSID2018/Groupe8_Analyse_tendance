@@ -75,6 +75,7 @@ def score_day(file,top_word):
                 list_agregate.append(0)
         dico[key]=list_agregate
         list_agregate=[]
+    dico["period"]=file.get("period")
 
     
     return(dico_back,dico)
