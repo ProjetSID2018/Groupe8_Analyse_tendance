@@ -14,7 +14,8 @@ with open('score_test.json', 'r') as file:
 
 def score_week(file, top_word):
     '''
-Function calculate mean TF IDF by word to built a dictionnary of word most important
+Function calculate mean TF IDF by word to built a dictionnary of word most
+important
 Function has two parameters:
     file : Json File
     top_word : number of important word which user would
@@ -62,25 +63,16 @@ A second dictionnary with top word with their TF values
         for index1 in range(len(val)):
             if len(val[index1]) != 0:
                 for index2 in range(len(val[index1])):
-                    liste_agregate.append(val[index1][index2])
+                    print(val[index1][index2])
+                    agregate = agregate + val[index1][index2]
             else:
-                liste_agregate.append(0)
-
-<<<<<<< HEAD
-        dico_tf[k]=liste_agregate
-        liste_agregate=[]
-    dico_tf["period"]=file.get("period")
-       
-    return(dico_back,dico_tf)
-=======
+                agregate = 0
+            liste_agregate.append(agregate)
+            agregate = 0
         dico_tf[k] = liste_agregate
         liste_agregate = []
 
     return(dico_back, dico_tf)
 
->>>>>>> 2047a1d4177dbffee0b67a4b8646981348ca317f
 
-print(score_week(file, 2))
-
-liste = [1, 2, 3]
-liste.append(0)
+print(score_week(file, 1))
