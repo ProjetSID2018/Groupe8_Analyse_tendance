@@ -67,6 +67,7 @@ A second dictionnary with top word with their TF values
 
         dico_tf[k]=liste_agregate
         liste_agregate=[]
+    dico_tf["period"]=file.get("period")
        
     return(dico_back,dico_tf)
 
