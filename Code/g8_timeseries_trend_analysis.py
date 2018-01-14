@@ -309,7 +309,7 @@ def trend_by_period(data, interest_period):
         else:
             residual_additive = res_additive.resid[15:46]
             residual_multiplicative = res_multiplicative.resid[15:46]
-            if sum(residual_additive) > 0:
+            if sum(residual_additive) != 0:
                 cor_add = acf(residual_additive)
                 cor_mult = acf(residual_multiplicative)
                 if sum(cor_add**2) >= sum(cor_mult**2):
