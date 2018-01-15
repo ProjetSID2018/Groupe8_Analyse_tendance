@@ -7,24 +7,40 @@ Created on Thu Jan 11 11:02:03 2018
 import scipy.stats as stats
 import statsmodels.stats.stattools as modele
 import json
-
+import numpy as np
+import matplotlib.pyplot as plt
 
 with open('serie_chrono.json', 'r') as fichier:
     data = json.load(fichier)
+""" lire data_tmp.json"""
+with open('C:/Users/samba/Desktop/info sid/M2/score_test.json', 'r') as file:
+        data = json.load(file)
+len(data['Trump'])
 
-def kendall_semaine (data):
-    
+data2={'Trump': [7,1,1,1,5,0,3,1,20,15,18,19,12,13,15]}
+len(data2['Trump'])
+def kendall_week(data):
     dico = {}
-    for val in data.values():
-        
-        for cle,valeur in val.items():
-                tab_sem_1=valeur[0]
-                tab_sem_2=valeur[1]
-    tau,p_value=stats.kendalltau(tab_sem_1,tab_sem_2)
-    dico = {"tau":tau, "p_value": p_value}
+    for key, val in data.items():
+        week_1 = val[0:7]
+        week_2 = val[7:14]
+        tau, p_value = stats.kendalltau(week_1, week_2)
+        print(p_value)
+        if (p_value < 0.05 and tau < 0):
+            dico[key] = "drop"
+        elif (p_value < 0.05 and tau > 0):
+            dico[key] = "rise"
+        else:
+            dico[key] = "no_trend"
     return dico
-    
-
+kendall_week(data2)
+stats.linregress(data2['Trump'][0:7], data2['Trump'][7:14])
+plt.plot(data2['Trump'][0:7])
+plt.plot(data2['Trump'][7:14])
+x = np.random.random ( 10 ) 
+y = np .random.random ( 10 ) 
+pente ,ordonne, r_value , p_value , std_err = stats.linregress ( x ,  y )
+plt . plot ( x ,  y )
 '''tableau_p_value=kendall_semaine(data)
 print ("tableau des tau :")
 print (tableau_tau)
