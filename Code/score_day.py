@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Jan 11 15:18:49 2018
-
 @author: Nicolas
 """
 
@@ -19,20 +18,16 @@ def score_day(file, top_word):
         This function allows you to show the most important words of a
         newspaper
         article and the TF of the previous day and the day for each word.
-
         We place the number of words what we want in parameters of the function
         when we call it.
-
     the function's parameters :
         The two function's parameters are
         - the file json which contains datas
         - the number of words what we want
-
     the function returns
         - a dictionnary which contains the key words and their mean on two days
         - a dictionnary wich contains the key words and all corresponding
         values
-
     """
     agregate = 0
     counter = 0
@@ -46,8 +41,10 @@ def score_day(file, top_word):
                 for index2 in range(len(val[index1])):
                     agregate = agregate + val[index1][index2]
                     counter = counter + 1
-                list_mean_intermediate.append(agregate / counter)
-
+                if counter != 0:
+                    list_mean_intermediate.append(agregate / counter)
+                else:
+                    list_mean_intermediate.append(0)
             key_word[key] = numpy.mean(list_mean_intermediate)
 
             agregate = 0
@@ -83,7 +80,3 @@ def score_day(file, top_word):
 
 
 print(score_day(file, 10))
-
-liste=[2,3]
-numpy.mean(liste)
-
