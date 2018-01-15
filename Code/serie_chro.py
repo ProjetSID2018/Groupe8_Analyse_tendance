@@ -13,7 +13,7 @@ with open('serie_chrono.json', 'r') as fichier:
           
 
 
-def resu_mensuel (fichier):
+def resu_mensuel(fichier):
    resultat={}
    somme=0
    resultat_jour=[]
