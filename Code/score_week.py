@@ -34,7 +34,7 @@ A second dictionnary with top word with their TF values
         if key[-3:] == "idf":
             for index1 in range(len(val)):
                 for index2 in range(len(val[index1])):
-                    agregate = agregate + val[index1][index2]
+                    agregate = agregate + float(val[index1][index2])
                     counter = counter + 1
                 if counter == 0:
                     list_mean_intermediate.append(0)
@@ -68,7 +68,7 @@ A second dictionnary with top word with their TF values
         for index1 in range(len(val)):
             if len(val[index1]) != 0:
                 for index2 in range(len(val[index1])):
-                    agregate = agregate + val[index1][index2]
+                    agregate = agregate + float(val[index1][index2])
             else:
                 agregate = 0
             liste_agregate.append(agregate)

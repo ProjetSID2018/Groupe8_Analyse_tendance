@@ -39,7 +39,7 @@ def score_day(file, top_word):
         if key != "period":
             for index1 in range(len(val)):
                 for index2 in range(len(val[index1])):
-                    agregate = agregate + val[index1][index2]
+                    agregate = agregate + float(val[index1][index2])
                     counter = counter + 1
                 if counter != 0:
                     list_mean_intermediate.append(agregate / counter)
@@ -70,7 +70,7 @@ def score_day(file, top_word):
         for index1 in range(len(val)):
             if len(val[index1]) != 0:
                 for index2 in range(len(val[index1])):
-                    list_agregate.append(val[index1][index2])
+                    list_agregate.append(float(val[index1][index2]))
             else:
                 list_agregate.append(0)
         dico[key] = list_agregate
