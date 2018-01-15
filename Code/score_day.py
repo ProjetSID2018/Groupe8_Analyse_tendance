@@ -6,6 +6,7 @@ Created on Thu Jan 11 15:18:49 2018
 """
 
 import json
+import numpy
 
 # Reading JSON data
 with open('jour.json', 'r') as file:
@@ -37,6 +38,7 @@ def score_day(file, top_word):
     counter = 0
     key_word = {}
     dico_tf = {}
+    list_mean_intermediate = []
     # calculate mean TF IDF by word
     for key, val in file.items():
         if key != "period":
@@ -44,10 +46,9 @@ def score_day(file, top_word):
                 for index2 in range(len(val[index1])):
                     agregate = agregate + val[index1][index2]
                     counter = counter + 1
+                list_mean_intermediate.append(agregate / counter)
 
-            mean_word = round(agregate / counter, 2)
-
-            key_word[key] = mean_word
+            key_word[key] = numpy.mean(list_mean_intermediate)
 
             agregate = 0
             counter = 0
@@ -75,16 +76,14 @@ def score_day(file, top_word):
                     list_agregate.append(val[index1][index2])
             else:
                 list_agregate.append(0)
-<<<<<<< HEAD
-        dico[key]=list_agregate
-        list_agregate=[]
-    dico["period"]=file.get("period")
-=======
         dico[key] = list_agregate
         list_agregate = []
 
     return(dico_back, dico)
->>>>>>> 2047a1d4177dbffee0b67a4b8646981348ca317f
 
 
 print(score_day(file, 10))
+
+liste=[2,3]
+numpy.mean(liste)
+

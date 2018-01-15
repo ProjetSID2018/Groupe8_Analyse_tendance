@@ -6,12 +6,13 @@ Created on Thu Jan 11 15:15:24 2018
 """
 
 import json
+import numpy
 
 # Reading JSON data
 with open('score_test.json', 'r') as file:
     file = json.load(file)
-    
-     
+
+
 def score_week(file, top_word):
     '''
 Function calculate mean TF IDF by word to built a dictionnary of word most
@@ -26,6 +27,7 @@ A second dictionnary with top word with their TF values
     counter = 0
     key_word = {}
     dictionnary_intermediate = {}
+    list_mean_intermediate = []
 
     # calculate mean TF IDF by word
     for key, val in file.items():
@@ -34,8 +36,12 @@ A second dictionnary with top word with their TF values
                 for index2 in range(len(val[index1])):
                     agregate = agregate + val[index1][index2]
                     counter = counter + 1
-            mean_word = agregate / counter
-            key_word[key[:-7]] = round(mean_word/len(val), 2)
+                if counter == 0:
+                    list_mean_intermediate.append(0)
+                else:
+                    list_mean_intermediate.append(agregate/counter)
+
+            key_word[key[:-7]] = numpy.mean(list_mean_intermediate)
             agregate = 0
             counter = 0
 
