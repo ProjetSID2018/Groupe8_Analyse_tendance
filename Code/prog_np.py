@@ -19,13 +19,13 @@ this program aims:
 
 #packages
 import json
-import scpy.stats
+import scipy.stats
 import numpy as np
 import matplotlib.pyplot as plt
 import statsmodels.stats.stattools
 
 from statsmodels.api import OLS
-#from statsmodels.graphics.regressionplots import abline_plot
+from statsmodels.graphics.regressionplots import abline_plot
 
 #dataset (example)
 #words and their sum of tf per day
@@ -45,7 +45,8 @@ with open('H:/SID Toulouse/Projet inter-promo/code/data.json', 'r') as file:
     data = json.load(file)
 
 #extract keys and values from the json file
-#input: json
+#input: json file's content
+#output: two lists (keys and values)
 def extract_keys_values(data):
     #initialisation of the "keys" and "values" lists
     keys = []
@@ -89,11 +90,13 @@ def linear_regression(data):
         
         dict_linreg[k] = [results.params[1], results.params[0]]
         
-        #fig = abline_plot(model_results = results, color = 'r', lw = 2)
+        #(...)
         
-        #reg_plot = fig.axes[0]
-        #reg_plot.plot(mat_x[:,1], v, color = 'b')
-        #reg_plot.margins(.1)
+        fig = abline_plot(model_results = results, color = 'r', lw = 2)
+        
+        reg_plot = fig.axes[0]
+        reg_plot.plot(mat_x[:,1], v, color = 'b')
+        reg_plot.margins(.1)
 
     return(dict_linreg)
 
@@ -106,7 +109,7 @@ def trend():
     dict_linreg = linear_regression(data)
     for k, v in dict_linreg.items():
         for j in range(1, len(v)):
-            if v[j] > 0:
+            if v[0] > 0:
                 dict_trend[k] = "rise"
             else:
                 dict_trend[k] = "drop"
@@ -118,7 +121,7 @@ trend()
 
 """
 
-#(...)
+(...)
 
 """
 
@@ -165,7 +168,7 @@ def kendall_test_week(data_v2):
         week_2 = v[1]
     
     for i in range(len(data_v2)):
-        tau, p_val = scpy.stats.kandalltau(week_1, week_2)
+        tau, p_val = scipy.stats.kandalltau(week_1, week_2)
         dict_kendall_test = {"tau": tau, "p-value": p_val}
         
     return(dict_kendall_test)
