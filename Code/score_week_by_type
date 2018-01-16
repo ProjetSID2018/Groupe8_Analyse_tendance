@@ -26,10 +26,20 @@ with open('score_weekV2.json', 'r') as file:
         - a dictionnary which contains the key words and their mean
         - a dictionnary wich contains the key words and all corresponding
         values
+
+        adj=score_week_V2(file, 1, “ADJ”)[1]
+        verb=score_week_V2(file, 1, “VERB”)[1]
+        proper_noun=score_week_V2(file, 1, “PROPER_NOUN”)[1]
+
+        #Concatenation des dictionnaires
+        test = {}
+        for d in [adj,verb,proper_noun]:
+        test.update(d)
+        
     """
 
 
-def score_week_V2(file, top_word, type_word):
+def score_week_by_type(file, top_word, type_word):
     liste_mot = []
     agregate = 0
     counter = 0
