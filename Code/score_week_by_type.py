@@ -10,6 +10,11 @@ import numpy
 with open('score_weekV2.json', 'r') as file:
     file = json.load(file)
 
+
+
+
+def score_week_by_type(file, top_word, type_word):
+
     """
     the function's objectives :
         This function allows you to select a type of words (e. g. proper name
@@ -37,9 +42,7 @@ with open('score_weekV2.json', 'r') as file:
         test.update(d)
         
     """
-
-
-def score_week_by_type(file, top_word, type_word):
+	
     liste_mot = []
     agregate = 0
     counter = 0
