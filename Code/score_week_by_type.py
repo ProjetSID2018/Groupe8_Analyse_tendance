@@ -34,13 +34,7 @@ def score_week_by_type(file, top_word, type_word):
 
         adj=score_week_V2(file, 1, “ADJ”)[1]
         verb=score_week_V2(file, 1, “VERB”)[1]
-        proper_noun=score_week_V2(file, 1, “PROPER_NOUN”)[1]
-
-        #Concatenation des dictionnaires
-        test = {}
-        for d in [adj,verb,proper_noun]:
-        test.update(d)
-        
+        proper_noun=score_week_V2(file, 1, “PROPER_NOUN”)[1]      
     """
 	
     liste_mot = []
