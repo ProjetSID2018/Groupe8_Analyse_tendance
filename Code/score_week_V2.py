@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Jan 12 08:51:33 2018
-
 @author: Nicolas
 """
 
@@ -11,6 +10,24 @@ import numpy
 with open('score_weekV2.json', 'r') as file:
     file = json.load(file)
 
+    """
+    the function's objectives :
+        This function allows you to select a type of words (e. g. proper name
+        or verb). As for version 1 of the function, the V2 returns to us the X
+        words of the nature requested presents in the article which have the
+        highest average, this same average and the initial data corresponding
+        to the words present in the json file.
+    the function's parameters :
+        The two function's parameters are
+        - the file json which contains datas
+        - the number of words what we want
+        -the nature of word
+    the function returns
+        - a dictionnary which contains the key words and their mean
+        - a dictionnary wich contains the key words and all corresponding
+        values
+    """
+
 
 def score_week_V2(file, top_word, type_word):
     liste_mot = []
@@ -19,15 +36,15 @@ def score_week_V2(file, top_word, type_word):
     key_word = {}
     list_mean_intermediate = []
 
-    # recuperer les TF IDF des mots pour la categorie choisi par l'utilisateur
-    # récuperer les TF des mots
+    # retrieve the TF IDF of the words for the category chosen by the user
+    # retrieve word TFs
     for cle in file.keys():
         if cle[-4:] == "type":
             if file.get(cle) == type_word:
                 mot_TFIDF = cle[:-5]
                 liste_mot.append(mot_TFIDF)
 
-    # calculer la moyenne des TF IDF par mot
+    # calculate the average of TF IDF per word
     for mot_tfidf in liste_mot:
         valeur = file.get(mot_tfidf)
         for index1 in range(len(valeur)):
@@ -43,8 +60,9 @@ def score_week_V2(file, top_word, type_word):
         agregate = 0
         counter = 0
 
-    # trier les mots par ordre décroissant
+    # sort words in descending order
     key_word_sort = sorted(key_word.items(), reverse=True, key=lambda t: t[1])
+
     # get only the number of key word pick by user
     key_word = key_word_sort[0:top_word]
 
