@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Jan 12 08:51:33 2018
+
 @author: Nicolas
 """
 
@@ -11,47 +12,22 @@ with open('score_weekV2.json', 'r') as file:
     file = json.load(file)
 
 
-
-
-def score_week_by_type(file, top_word, type_word):
-
-    """
-    the function's objectives :
-        This function allows you to select a type of words (e. g. proper name
-        or verb). As for version 1 of the function, the V2 returns to us the X
-        words of the nature requested presents in the article which have the
-        highest average, this same average and the initial data corresponding
-        to the words present in the json file.
-    the function's parameters :
-        The two function's parameters are
-        - the file json which contains datas
-        - the number of words what we want
-        -the nature of word
-    the function returns
-        - a dictionnary which contains the key words and their mean
-        - a dictionnary wich contains the key words and all corresponding
-        values
-
-        adj=score_week_V2(file, 1, “ADJ”)[1]
-        verb=score_week_V2(file, 1, “VERB”)[1]
-        proper_noun=score_week_V2(file, 1, “PROPER_NOUN”)[1]      
-    """
-	
+def score_week_V2(file, top_word, type_word):
     liste_mot = []
     agregate = 0
     counter = 0
     key_word = {}
     list_mean_intermediate = []
 
-    # retrieve the TF IDF of the words for the category chosen by the user
-    # retrieve word TFs
+    # recuperer les TF IDF des mots pour la categorie choisi par l'utilisateur
+    # récuperer les TF des mots
     for cle in file.keys():
         if cle[-4:] == "type":
             if file.get(cle) == type_word:
                 mot_TFIDF = cle[:-5]
                 liste_mot.append(mot_TFIDF)
 
-    # calculate the average of TF IDF per word
+    # calculer la moyenne des TF IDF par mot
     for mot_tfidf in liste_mot:
         valeur = file.get(mot_tfidf)
         for index1 in range(len(valeur)):
@@ -67,9 +43,8 @@ def score_week_by_type(file, top_word, type_word):
         agregate = 0
         counter = 0
 
-    # sort words in descending order
+    # trier les mots par ordre décroissant
     key_word_sort = sorted(key_word.items(), reverse=True, key=lambda t: t[1])
-
     # get only the number of key word pick by user
     key_word = key_word_sort[0:top_word]
 
@@ -95,7 +70,10 @@ def score_week_by_type(file, top_word, type_word):
             liste_agregate.append(agregate)
             agregate = 0
         dico_tf[key] = liste_agregate
+        dico_tf[key + "_type"] = file.get(key + "_type")
         liste_agregate = []
 
     return(dico_back, dico_tf)
 
+
+print(score_week_V2(file, 2, "nom propre"))
