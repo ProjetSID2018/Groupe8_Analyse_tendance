@@ -33,8 +33,7 @@ import matplotlib.pyplot as plt
 import statsmodels.stats.stattools
 
 from statsmodels.api import OLS
-
-#from statsmodels.graphics.regressionplots import abline_plot
+from statsmodels.graphics.regressionplots import abline_plot
 
 
 
@@ -125,14 +124,15 @@ def linear_regression(data):
         
         dict_linreg[k] = [results.params[1], results.params[0]]
         
-        #fig = abline_plot(model_results = results, color = 'r', lw = 2)
+        fig = abline_plot(model_results = results, color = 'r', lw = 2)
         
-        #reg_plot = fig.axes[0]
-        #reg_plot.plot(mat_x[:,1], v, color = 'b')
-        #reg_plot.margins(.1)
+        reg_plot = fig.axes[0]
+        reg_plot.plot(mat_x[:,1], v, color = 'b')
+        reg_plot.margins(.1)
         
-        #results.summary()
+        results.summary()
         
+        print("word :")
         print(k)
         print("r² :")
         print(results.rsquared)
@@ -222,16 +222,21 @@ trend(data)
 keys, values = extract_keys_values(data_v2)
 linear_regression(data_v2)
 mavg_series = []
+dict_word_mavg = {}
 for j in range(len(values)):
     test = []
-    mavg_series.append(moving_average(values[j], 3))
-    splt_series = [mavg_series[j][0:5], mavg_series[j][6:11]]
+    mavg_series = moving_average(values[j], 3)
+    mavg_series = mavg_series.tolist()
+    dict_word_mavg[keys[j]] = mavg_series
+    splt_series = [mavg_series[0:5], mavg_series[6:11]]
     test = scipy.stats.ttest_ind(splt_series[1], splt_series[0])
     print("")
     print("word :")
     print(keys[j])
     print("p-value :")
     print(test[1])
+
+file_trend(dict_word_mavg)
 
 
 
