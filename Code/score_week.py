@@ -63,8 +63,7 @@ A second dictionnary with top word with their TF values
 
     dico_tf = {}
     liste_agregate = []
-    
-    
+
     for key, val in dictionnary_intermediate.items():
         for index1 in range(len(val)):
             if len(val[index1]) != 0:
