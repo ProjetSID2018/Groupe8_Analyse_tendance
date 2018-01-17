@@ -21,7 +21,7 @@ Function has two parameters:
     file : Json File
     top_word : number of important word which user would
 It returns a dictionnary of top word with their mean TF IDF
-A second dictionnary with top word with their TF values
+A second dictionnary with top word with their TF_IDF values
 '''''
 
     agregate = 0
@@ -40,7 +40,7 @@ A second dictionnary with top word with their TF values
                 if counter == 0:
                     list_mean_intermediate.append(0)
                 else:
-                    list_mean_intermediate.append(agregate/counter)
+                    list_mean_intermediate.append(agregate / counter)
 
                 key_word[key] = numpy.mean(list_mean_intermediate)
                 agregate = 0
@@ -63,8 +63,7 @@ A second dictionnary with top word with their TF values
 
     dico_tf = {}
     liste_agregate = []
-    
-    
+
     for key, val in dictionnary_intermediate.items():
         for index1 in range(len(val)):
             if len(val[index1]) != 0:
