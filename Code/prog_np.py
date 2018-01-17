@@ -13,6 +13,7 @@ this program aims:
     - to display the line plot depicting the evolution of the sum_tf
         over time ; and the regression line
     - to define the trend (rise, drop) according to the coefficient value
+    - (...)
 
 """
 
@@ -118,6 +119,30 @@ def trend(data):
     return(dict_trend)
 
 #trend(data)
+
+def moving_average(seq, order) :
+    moving_avg = np.cumsum(seq, dtype = float)
+    moving_avg[order:] = moving_avg[order:] - moving_avg[:-order]
+    return moving_avg[order - 1:] / order
+
+data_v2 = {"parcoursup": [0, 1, 1, 3, 3, 4, 5, 7, 7, 8, 10, 9, 11, 12],
+           "airport": [8, 8, 7, 6, 6, 4, 5, 3, 3, 2, 1, 1, 0, 0],
+           "lactalis": [5, 3, 3, 2, 2, 1, 2, 2, 3, 3, 4, 5, 5, 6],
+           "avalanche": [6, 6, 7, 6, 6, 6, 5, 6, 6, 7, 6, 6, 6, 6]}
+
+keys, values = extract_keys_values(data_v2)
+linear_regression(data_v2)
+mavg_series = []
+for j in range(len(values)):
+    test = []
+    mavg_series.append(moving_average(values[j], 3))
+    splt_series = [mavg_series[j][0:5], mavg_series[j][6:11]]
+    test = scipy.stats.ttest_ind(splt_series[1], splt_series[0])
+    print("")
+    print("word :")
+    print(keys[j])
+    print("p-value :")
+    print(test[1])
 
 
 
