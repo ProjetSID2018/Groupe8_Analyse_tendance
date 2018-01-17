@@ -12,7 +12,7 @@ with open('score_weekV2.json', 'r') as file:
     file = json.load(file)
 
 
-def score_week_V2(file, top_word, type_word):
+def score_week_by_type(file, top_word, type_word):
     liste_mot = []
     agregate = 0
     counter = 0
