@@ -30,10 +30,10 @@ import json
 import scipy.stats
 import numpy as np
 import matplotlib.pyplot as plt
-import statsmodels.stats.stattools
+#import statsmodels.stats.stattools
 
 from statsmodels.api import OLS
-from statsmodels.graphics.regressionplots import abline_plot
+#from statsmodels.graphics.regressionplots import abline_plot
 
 
 
@@ -124,13 +124,13 @@ def linear_regression(data):
         
         dict_linreg[k] = [results.params[1], results.params[0]]
         
-        fig = abline_plot(model_results = results, color = 'r', lw = 2)
+        #fig = abline_plot(model_results = results, color = 'r', lw = 2)
         
-        reg_plot = fig.axes[0]
-        reg_plot.plot(mat_x[:,1], v, color = 'b')
-        reg_plot.margins(.1)
+        #reg_plot = fig.axes[0]
+        #reg_plot.plot(mat_x[:,1], v, color = 'b')
+        #reg_plot.margins(.1)
         
-        results.summary()
+        #results.summary()
         
         print("word :")
         print(k)
@@ -165,14 +165,14 @@ def moving_average(seq, order) :
 #and returns the trend (increasing or decreasing)
 def test_trend(data, word, id_day):
     test = scipy.stats.ttest_ind(data[word][id_day], data[word][id_day - 1])
-    if(test[1] > 0.001 and test[1] < 0.05):
+    if (test[1] > 0.001 and test[1] < 0.05):
         if ((test[0] > 0)):
             return(word, "increasing_trend")
         elif (test[0] < 0):
             return(word, "decreasing_trend")
         else:
             return(word, "no_trend")
-    elif(test[1] < 0.001):
+    elif (test[1] < 0.001):
         if ((test[0] > 0)):
             return(word, "strongly_increasing_trend")
         elif (test[0] < 0):
@@ -195,6 +195,27 @@ def file_trend(data):
         else:
             output_trend[key] = value
     return(output_trend)
+
+def trend_with_moving_average(data_v2):
+    keys, values = extract_keys_values(data_v2)
+    linear_regression(data_v2)
+    mavg_series = []
+    dict_word_mavg = {}
+    for j in range(len(values)):
+        test = []
+        mavg_series = moving_average(values[j], 3)
+        mavg_series = mavg_series.tolist()
+        splt_series = [mavg_series[0:5], mavg_series[6:11]]
+        dict_word_mavg[keys[j]] =  splt_series
+        test = scipy.stats.ttest_ind(splt_series[1], splt_series[0])
+        print("")
+        print(test)
+        print("word :")
+        print(keys[j])
+        print("p-value :")
+        print(test[1])
+    
+    file_trend(dict_word_mavg)
 
 
 
@@ -219,61 +240,4 @@ plt.plot(np.transpose(values))
 
 trend(data)
 
-keys, values = extract_keys_values(data_v2)
-linear_regression(data_v2)
-mavg_series = []
-dict_word_mavg = {}
-for j in range(len(values)):
-    test = []
-    mavg_series = moving_average(values[j], 3)
-    mavg_series = mavg_series.tolist()
-    dict_word_mavg[keys[j]] = mavg_series
-    splt_series = [mavg_series[0:5], mavg_series[6:11]]
-    test = scipy.stats.ttest_ind(splt_series[1], splt_series[0])
-    print("")
-    print("word :")
-    print(keys[j])
-    print("p-value :")
-    print(test[1])
-
-file_trend(dict_word_mavg)
-
-
-
-"""
-
-test de durbin-watson
-
-"""
-
-#test de durbin-watson
-def durbin_watson_test(data):
-    residuals = OLS(data, np.ones(len(data))).fit()
-    return statsmodels.stats.stattools.durbin_watson(residuals.resid)
-
-print("durbin_watson of range = %f" %durbin_watson_test(np.arange(2000)))
-print("durbin_watson of rand = %f" %durbin_watson_test(np.random.randn(2000)))
-
-
-
-"""
-
-test de kendall
-
-"""
-
-#kendall test
-def kendall_test_week(data):
-    keys = []
-    output_kendall_test = {}
-
-    for k, v in data.items():
-        keys.append(k)
-        week_1 = v[0]
-        week_2 = v[1]
-    
-    for i in range(len(data)):
-        tau, p_val = scipy.stats.kandalltau(week_1, week_2)
-        output_kendall_test = {"tau": tau, "p-value": p_val}
-        
-    return(output_kendall_test)
+trend_with_moving_average(data_v2)
