@@ -28,16 +28,16 @@ def test_trend(data, word, id_day):
         elif (test[0] < 0):
             return(word, 'Decreasing_trend')
         else:
-            return(word, 'No_Trend')
+            return(word, 'No_trend')
     elif(test[1] < 0.001):
         if ((test[0] > 0)):
             return(word, 'Strongly_increasing_trend')
         elif (test[0] < 0):
             return(word, 'Strongly_decreasing_trend')
         else:
-            return(word, 'No_Trend')
+            return(word, 'No_trend')
     else:
-        return(word, 'No_Trend')
+        return(word, 'No_trend')
 
 
 def file_trend(data):
