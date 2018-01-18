@@ -8,7 +8,7 @@ Created on Sat Jan 13 15:55:43 2018
 import scipy
 import statsmodels.api as sm
 from statsmodels.tsa.stattools import acf
-
+import numpy as np
 
 data_add = {
     "mot": [
@@ -255,8 +255,9 @@ res = sm.tsa.seasonal_decompose([10,
                                  150],
                                 freq=7,
                                 model='multiplicative')
+sm.tsa.seasonal_decompose
 
-res.residual
+res.resid
 
 
 def trend_by_period(data, interest_period):
@@ -296,6 +297,7 @@ def trend_by_period(data, interest_period):
                     trend_values = {list_data[i]["word"]: [
                         res_additive.trend[3:6], res_additive.trend[7:10]]}
                     test_trend = file_trend(trend_values)
+                    print("----------------------")
                     print(trend_values)
                 else:
                     print('mult')
@@ -373,3 +375,5 @@ def file_trend(data):
 
 trend = res.trend
 resplot = res.plot()
+data_add
+trend_by_period(data_add, 7)
