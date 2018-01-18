@@ -41,20 +41,20 @@ def test_trend(data, word, id_day):
     test = scipy.stats.ttest_ind(data[word][id_day], data[word][id_day - 1])
     if(test[1] > 0.001 and test[1] < 0.05):
         if ((test[0] > 0)):
-            return(word, 'Tendance_en_hausse')
+            return(word, 'Increasing_trend')
         elif (test[0] < 0):
-            return(word, 'Tendance_en_baisse')
+            return(word, 'Decreasing_trend')
         else:
-            return(word, 'Pas_de_Tendance')
+            return(word, 'No_trend')
     elif(test[1] < 0.001):
         if ((test[0] > 0)):
-            return(word, 'Tendance_fortement_en_hausse')
+            return(word, 'Strongly_increasing_trend')
         elif (test[0] < 0):
-            return(word, 'Tendance_fortement_en_baisse')
+            return(word, 'Strongly_decreasing_trend')
         else:
-            return(word, 'Pas_de_Tendance')
+            return(word, 'No_trend')
     else:
-        return(word, 'Pas_de_tendance')
+        return(word, 'No_trend')
 
 
 def polarity(data, val):
