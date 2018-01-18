@@ -42,7 +42,6 @@ A second dictionnary with top word with their TF values
                 for index2 in range(len(val[index1])):
                     agregate = agregate + float(val[index1][index2])
                     counter = counter + 1
-                print(counter)
                 if counter == 0:
                     list_mean_intermediate.append(0)
                 else:
