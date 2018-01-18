@@ -8,7 +8,7 @@ Created on Sat Jan 13 15:55:43 2018
 import scipy
 import statsmodels.api as sm
 from statsmodels.tsa.stattools import acf
-
+import numpy as np
 
 data_add = {
     "mot1": [
@@ -242,8 +242,13 @@ data_mult2 = {
 res = sm.tsa.seasonal_decompose(data_test,
                                 freq=31,
                                 model='multiplicative')
+sm.tsa.seasonal_decompose
 
 res.resid
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5800095a83a43fd2b2795db8fd3424f7cb2cc329
 
 def trend_by_period(data, interest_period):
     '''To get the trend of time series
@@ -291,6 +296,13 @@ def trend_by_period(data, interest_period):
                     if sum(cor_add**2) >= sum(cor_mult**2):
                         print('additive')
                     # use t_test to detect trend
+<<<<<<< HEAD
+                    trend_values = {list_data[i]["word"]: [
+                        res_additive.trend[3:6], res_additive.trend[7:10]]}
+                    test_trend = file_trend(trend_values)
+                    print("----------------------")
+                    print(trend_values)
+=======
                         trend_values = {list_data[i]["word"]: [
                                 res_additive.trend[3:6], res_additive.trend[7:10]]}
                         test_trend = file_trend(trend_values)
@@ -301,6 +313,7 @@ def trend_by_period(data, interest_period):
                                 res_multiplicative.trend[3:6], res_multiplicative.trend[7:10]]}
                         test_trend = file_trend(trend_values)
                         print(trend_values)
+>>>>>>> 5800095a83a43fd2b2795db8fd3424f7cb2cc329
                 else:
                     test_trend = {list_data[i]["word"]: 'Pas_de_Tendance'}
             else:
@@ -369,5 +382,10 @@ def file_trend(data):
 
 trend = res.trend
 resplot = res.plot()
+<<<<<<< HEAD
+data_add
+trend_by_period(data_add, 7)
+=======
 
 data_bis = {"trump" : [0, 1, 1, 3, 2, 4, 5, 5, 6, 8, 7, 9, 11, 10], "macron" : [17, 15, 14, 15, 13, 12, 10, 9, 9, 8, 8, 7, 8, 6], "ceremonie" : [0, 0, 2, 1, 3, 4, 5, 6, 6, 5, 4, 4, 3, 3], "aeroport" : [3, 3, 2, 3, 3, 4, 2, 2, 4, 3, 3, 3, 4, 4], "tempete" : [5, 5, 5, 4, 5, 4, 4, 5, 5, 6, 6, 5, 5, 4], "impot" : [20, 18, 19, 17, 16, 16, 15, 13, 13, 12, 10, 9, 10, 8]}
+>>>>>>> 5800095a83a43fd2b2795db8fd3424f7cb2cc329
