@@ -18,6 +18,11 @@ def score_week_by_type(file, top_word, type_word):
     counter = 0
     key_word = {}
     list_mean_intermediate = []
+    dico_mean = {}
+
+    for key, val in file.items():
+        if key != "Period" and key[-4:] != "type":
+            dico_mean[key] = val[7:14]
 
     # recuperer les TF IDF des mots pour la categorie choisi par l'utilisateur
     # récuperer les TF des mots
@@ -76,4 +81,4 @@ def score_week_by_type(file, top_word, type_word):
     return(dico_back, dico_tf)
 
 
-print(score_week_V2(file, 2, "nom propre"))
+print(score_week_by_type(file, 2, "nom propre"))
