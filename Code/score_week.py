@@ -9,7 +9,7 @@ import json
 import numpy
 
 # Reading JSON data
-with open('score_week.json', 'r') as file:
+with open('score_weekV2.json', 'r') as file:
     file = json.load(file)
 
 
@@ -29,9 +29,14 @@ A second dictionnary with top word with their TF values
     key_word = {}
     dico_back = {}
     list_mean_intermediate = []
+    dico_mean = {}
+
+    for key, val in file.items():
+        if key != "Period" and key[-4:] != "type":
+            dico_mean[key] = val[7:14]
 
     # calculate mean TF IDF by word
-    for key, val in file.items():
+    for key, val in dico_mean.items():
         for index1 in range(len(val)):
             if key != "Period" and key[-4:] != "type":
                 for index2 in range(len(val[index1])):
