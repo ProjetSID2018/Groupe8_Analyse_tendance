@@ -20,7 +20,7 @@ def score_week_by_type(file, top_word, type_word):
     list_mean_intermediate = []
     dico_mean = {}
 
-    for key, val in file.items():
+    for key, val in dico_mean.items():
         if key != "Period" and key[-4:] != "type":
             dico_mean[key] = val[7:14]
 
