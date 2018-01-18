@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Jan 12 08:51:33 2018
-
 @author: Nicolas
 """
 
@@ -13,6 +12,24 @@ with open('score_weekV2.json', 'r') as file:
 
 
 def score_week_by_type(file, top_word, type_word):
+    """the function's objectives :
+        This function allows you to show the most important words of a
+        newspaper
+        article by type and the TF of the previous week and the week for
+        each word.
+        We place the number of words what we want in parameters of the function
+        when we call it.
+       the function's parameters :
+           the three function's parameters are:
+               -the file json which contains datas
+               -the number of words what we want
+               -the type of word (adjective, verb...) what the user has chosen
+       the function returns :
+            - a dictionnary which contains the key words and their mean on
+            two weeks
+            - a dictionnary wich contains the key words and all corresponding
+            values
+        """
     liste_mot = []
     agregate = 0
     counter = 0
@@ -24,15 +41,17 @@ def score_week_by_type(file, top_word, type_word):
         if key != "Period" and key[-4:] != "type":
             dico_mean[key] = val[7:14]
 
-    # recuperer les TF IDF des mots pour la categorie choisi par l'utilisateur
-    # récuperer les TF des mots
+    
+    # collect TF IDF of words for the type what the user has chosen
+    # collect TF of words
     for cle in file.keys():
         if cle[-4:] == "type":
             if file.get(cle) == type_word:
                 mot_TFIDF = cle[:-5]
                 liste_mot.append(mot_TFIDF)
 
-    # calculer la moyenne des TF IDF par mot
+    
+    # calculate the average of TF IDF by word
     for mot_tfidf in liste_mot:
         valeur = file.get(mot_tfidf)
         for index1 in range(len(valeur)):
@@ -48,7 +67,8 @@ def score_week_by_type(file, top_word, type_word):
         agregate = 0
         counter = 0
 
-    # trier les mots par ordre décroissant
+    
+    # sort the words by descending order
     key_word_sort = sorted(key_word.items(), reverse=True, key=lambda t: t[1])
     # get only the number of key word pick by user
     key_word = key_word_sort[0:top_word]
