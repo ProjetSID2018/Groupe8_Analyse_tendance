@@ -11,7 +11,7 @@ from statsmodels.tsa.stattools import acf
 import numpy as np
 
 data_add = {
-    "mot": [
+    "mot1": [
         10,
         11,
         15,
@@ -45,11 +45,11 @@ data_add = {
         4,
         3,
         2]}
-data_mult = [10, 11, 15, 12, 13, 18, 15, 100, 110, 150, 120, 130, 180, 150]
+data_mult = {"test":[10, 11, 15, 12, 13, 18, 15, 100, 110, 150, 120, 130, 180, 150]}
 data_add2 = [10, 11, 15, 12, 13, 18, 15, 10, 11, 15, 12, 13, 18, 15]
 data_mult = {
     "mot1": [
-        10,
+        0,
         11,
         15,
         12,
@@ -112,7 +112,7 @@ data_mult = {
         28,
         31]}
 data_test = [
-    10,
+    0,
     11,
     15,
     12,
@@ -176,7 +176,7 @@ data_test = [
     31]
 data_mult2 = {
     "mot1": [
-        10,
+        0,
         11,
         15,
         12,
@@ -239,26 +239,16 @@ data_mult2 = {
         280,
         310]}
 
-res = sm.tsa.seasonal_decompose([10,
-                                 11,
-                                 15,
-                                 12,
-                                 13,
-                                 18,
-                                 15,
-                                 100,
-                                 110,
-                                 150,
-                                 120,
-                                 130,
-                                 180,
-                                 150],
-                                freq=7,
+res = sm.tsa.seasonal_decompose(data_test,
+                                freq=31,
                                 model='multiplicative')
 sm.tsa.seasonal_decompose
 
 res.resid
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5800095a83a43fd2b2795db8fd3424f7cb2cc329
 
 def trend_by_period(data, interest_period):
     '''To get the trend of time series
@@ -275,58 +265,74 @@ def trend_by_period(data, interest_period):
     for key, val in data.items():
         preprocess = {"values": val, "word": key}
         list_data.append(preprocess)
-    print(list_data)
     # first step : check if the model is addive or multiplicative
     for i in range(len(list_data)):
-        res_additive = sm.tsa.seasonal_decompose(
-            list_data[i]["values"], freq=interest_period, model='additive')
-        res_multiplicative = sm.tsa.seasonal_decompose(
-            list_data[i]["values"], freq=interest_period, model='multiplicative')
+        if 0 in list_data[i]["values"]:
+            res_additive = sm.tsa.seasonal_decompose(
+                    list_data[i]["values"], freq=interest_period, model='additive')
+            if interest_period == 7:
+                trend_values = {list_data[i]["word"]: [
+                                res_additive.trend[3:6], res_additive.trend[7:10]]}
+                test_trend = file_trend(trend_values)
+            #else:
+                #trend_values = {list_data[i]["word"]: [
+                                #res_additive.trend[15:31], res_additive.trend[32:47]]}
+                #test_trend = file_trend(trend_values)
+            #print(test_trend)
+        else:
+            res_additive = sm.tsa.seasonal_decompose(
+                    list_data[i]["values"], freq=interest_period, model='additive')
+            res_multiplicative = sm.tsa.seasonal_decompose(
+                    list_data[i]["values"], freq=interest_period, model='multiplicative')
     # recover residual by model
-        if interest_period == 7:
-            residual_additive = res_additive.resid[3:11]
-            residual_multiplicative = res_multiplicative.resid[3:11]
+            if interest_period == 7:
+                residual_additive = res_additive.resid[3:11]
+                residual_multiplicative = res_multiplicative.resid[3:11]
     # get autocorrelation values of the residual by model
-            cor_add = acf(residual_additive)
-            cor_mult = acf(residual_multiplicative)
+                cor_add = acf(residual_additive)
+                cor_mult = acf(residual_multiplicative)
     # Choose model type (additive or multiplicative)
-            if sum(residual_additive) != 0:
-                if sum(cor_add**2) >= sum(cor_mult**2):
-                    print('additive')
+                if sum(residual_additive) != 0:
+                    if sum(cor_add**2) >= sum(cor_mult**2):
+                        print('additive')
                     # use t_test to detect trend
+<<<<<<< HEAD
                     trend_values = {list_data[i]["word"]: [
                         res_additive.trend[3:6], res_additive.trend[7:10]]}
                     test_trend = file_trend(trend_values)
                     print("----------------------")
                     print(trend_values)
+=======
+                        trend_values = {list_data[i]["word"]: [
+                                res_additive.trend[3:6], res_additive.trend[7:10]]}
+                        test_trend = file_trend(trend_values)
+                        print(trend_values)
+                    else:
+                        sum(cor_mult**2)
+                        trend_values = {list_data[i]["word"]: [
+                                res_multiplicative.trend[3:6], res_multiplicative.trend[7:10]]}
+                        test_trend = file_trend(trend_values)
+                        print(trend_values)
+>>>>>>> 5800095a83a43fd2b2795db8fd3424f7cb2cc329
                 else:
-                    print('mult')
-                    sum(cor_mult**2)
-                    trend_values = {list_data[i]["word"]: [
-                        res_multiplicative.trend[3:6], res_multiplicative.trend[7:10]]}
-                    test_trend = file_trend(trend_values)
-                    print(trend_values)
+                    test_trend = {list_data[i]["word"]: 'Pas_de_Tendance'}
             else:
-                test_trend = {list_data[i]["word"]: 'Pas_de_Tendance'}
-        else:
-            residual_additive = res_additive.resid[15:46]
-            residual_multiplicative = res_multiplicative.resid[15:46]
-            if sum(residual_additive) != 0:
-                cor_add = acf(residual_additive)
-                cor_mult = acf(residual_multiplicative)
-                if sum(cor_add**2) >= sum(cor_mult**2):
-                    print('additive')
-                    print(residual_additive)
-                    trend_values = {list_data[i]["word"]: [
-                        res_additive.trend[15:31], res_additive.trend[32:47]]}
-                    test_trend = file_trend(trend_values)
+                residual_additive = res_additive.resid[15:46]
+                residual_multiplicative = res_multiplicative.resid[15:46]
+                if sum(residual_additive) != 0:
+                    cor_add = acf(residual_additive)
+                    cor_mult = acf(residual_multiplicative)
+                    if sum(cor_add**2) >= sum(cor_mult**2):
+                        trend_values = {list_data[i]["word"]: [
+                                res_additive.trend[15:31], res_additive.trend[32:47]]}
+                        test_trend = file_trend(trend_values)
+                    else:
+                        print('mult')
+                        trend_values = {list_data[i]["word"]: [
+                                res_multiplicative.trend[15:31], res_multiplicative.trend[32:47]]}
+                        test_trend = file_trend(trend_values)
                 else:
-                    print('mult')
-                    trend_values = {list_data[i]["word"]: [
-                        res_multiplicative.trend[15:31], res_multiplicative.trend[32:47]]}
-                    test_trend = file_trend(trend_values)
-            else:
-                test_trend = {list_data[i]["word"]: 'Pas_de_Tendance'}
+                    test_trend = {list_data[i]["word"]: 'Pas_de_Tendance'}
         result_trend.append(test_trend)
     return result_trend
 
@@ -357,6 +363,7 @@ def test_trend(data, word, id_day):
     else:
         return(word, 'Pas_de_tendance')
 
+data_bis = { data_bis = {"trump" : [0, 1, 1, 3, 2, 4, 5, 5, 6, 8, 7, 9, 11, 10], "macron" : [17, 15, 14, 15, 13, 12, 10, 9, 9, 8, 8, 7, 8, 6], "ceremonie" : [0, 0, 2, 1, 3, 4, 5, 6, 6, 5, 4, 4, 3, 3], "aeroport" : [3, 3, 2, 3, 3, 4, 2, 2, 4, 3, 3, 3, 4, 4], "tempete" : [5, 5, 5, 4, 5, 4, 4, 5, 5, 6, 6, 5, 5, 4], "impot" : [20, 18, 19, 17, 16, 16, 15, 13, 13, 12, 10, 9, 10, 8]}, "macron" : [17, 15, 14, 15, 13, 12, 10, 9, 9, 8, 8, 7, 8, 6], "ceremonie" : [1, 1, 2, 1, 3, 4, 5, 6, 6, 5, 4, 4, 3, 3], "aeroport" : [3, 3, 2, 3, 3, 4, 2, 2, 4, 3, 3, 3, 4, 4], "tempete" : [5, 5, 5, 4, 5, 4, 4, 5, 5, 6, 6, 5, 5, 4], "impot" : [20, 18, 19, 17, 16, 16, 15, 13, 13, 12, 10, 9, 10, 8]}
 
 def file_trend(data):
     """ data preprocessing for groupe 9
@@ -375,5 +382,10 @@ def file_trend(data):
 
 trend = res.trend
 resplot = res.plot()
+<<<<<<< HEAD
 data_add
 trend_by_period(data_add, 7)
+=======
+
+data_bis = {"trump" : [0, 1, 1, 3, 2, 4, 5, 5, 6, 8, 7, 9, 11, 10], "macron" : [17, 15, 14, 15, 13, 12, 10, 9, 9, 8, 8, 7, 8, 6], "ceremonie" : [0, 0, 2, 1, 3, 4, 5, 6, 6, 5, 4, 4, 3, 3], "aeroport" : [3, 3, 2, 3, 3, 4, 2, 2, 4, 3, 3, 3, 4, 4], "tempete" : [5, 5, 5, 4, 5, 4, 4, 5, 5, 6, 6, 5, 5, 4], "impot" : [20, 18, 19, 17, 16, 16, 15, 13, 13, 12, 10, 9, 10, 8]}
+>>>>>>> 5800095a83a43fd2b2795db8fd3424f7cb2cc329

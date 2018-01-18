@@ -21,22 +21,26 @@ def test_trend(data, word, id_day):
     This function calculate the T-test for the means of two independent samples and returns the conclusion of the test
     '''
     test = scipy.stats.ttest_ind(data[word][id_day], data[word][id_day - 1])
+<<<<<<< HEAD
+=======
+    test = scipy.stats.ttest_ind(data[word][id_day], data[word][id_day-1])
+>>>>>>> 5800095a83a43fd2b2795db8fd3424f7cb2cc329
     if(test[1] > 0.001 and test[1] < 0.05):
         if ((test[0] > 0)):
-            return(word, 'Tendance_en_hausse')
+            return(word, 'Increasing_trend')
         elif (test[0] < 0):
-            return(word, 'Tendance_en_baisse')
+            return(word, 'Decreasing_trend')
         else:
-            return(word, 'Pas_de_Tendance')
+            return(word, 'No_trend')
     elif(test[1] < 0.001):
         if ((test[0] > 0)):
-            return(word, 'Tendance_fortement_en_hausse')
+            return(word, 'Strongly_increasing_trend')
         elif (test[0] < 0):
-            return(word, 'Tendance_fortement_en_baisse')
+            return(word, 'Strongly_decreasing_trend')
         else:
-            return(word, 'Pas_de_Tendance')
+            return(word, 'No_trend')
     else:
-        return(word, 'Pas_de_tendance')
+        return(word, 'No_trend')
 
 
 def file_trend(data):
